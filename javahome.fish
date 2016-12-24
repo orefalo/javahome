@@ -5,7 +5,16 @@
 set os (uname)
 
 if test "$os" = "Darwin"
-   set -g -x JAVA_HOME (/usr/libexec/java_home -v 1.8)
+   if test -x /usr/libexec/java_home
+	   set -g -x JAVA_HOME (/usr/libexec/java_home -v 1.8)
+   else
+   		set javapath (which java)
+   		# resolve the link
+   		if test -L "$javapath"
+   			set javapath (readlink "$javapath")
+   		end
+   		set -g -x JAVA_HOME (dirname (dirname "$javapath"))
+   end
 end
 
 if test "$os" = "Linux"
