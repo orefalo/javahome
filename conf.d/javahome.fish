@@ -21,6 +21,5 @@ if test "$os" = "Linux"
 	set -g -x JAVA_HOME (dirname (dirname (readlink -f (which javac))))
 end
 
-set -g -x PATH $JAVA_HOME/bin $PATH
-
-
+#set -g -x PATH $JAVA_HOME/bin $PATH
+fish_add_path --path $JAVA_HOME/bin
